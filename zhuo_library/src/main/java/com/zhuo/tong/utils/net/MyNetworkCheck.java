@@ -28,6 +28,8 @@ import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.zhuo.tong.utils.MyTestLog;
+
 public class MyNetworkCheck {
     public static String proxy;
     public static int port;
@@ -183,10 +185,12 @@ public class MyNetworkCheck {
      * 开启wifi
      *
      * @param context
+     * @return
      */
-    public static void setWifiEnabled(Context context) {
+    public static boolean setWifiEnabled(Context context) {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        wifiManager.setWifiEnabled(true);
+        MyTestLog.info("即将开启wifi");
+        return wifiManager.setWifiEnabled(true);
     }
 
     /**
@@ -194,9 +198,10 @@ public class MyNetworkCheck {
      *
      * @param context
      */
-    public static void setWifiDisabled(Context context) {
+    public static boolean setWifiDisabled(Context context) {
         WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-        wifiManager.setWifiEnabled(false);
+        MyTestLog.info("即将关闭wifi");
+        return wifiManager.setWifiEnabled(false);
     }
 
     /**
@@ -206,13 +211,11 @@ public class MyNetworkCheck {
      */
     public static boolean autoSetWifiEnabled(Context context) {
         if (!isWifiEnabled(context)) {
-//            wifi_TextView.setText("wifi:未开启");
-            setWifiEnabled(context);
-            return true;
+            MyTestLog.info("wifi:未开启");
+            return setWifiEnabled(context);
         } else {
-//            wifi_TextView.setText("wifi:已开启");
-            setWifiDisabled(context);
-            return false;
+            MyTestLog.info("wifi:已开启");
+            return !setWifiDisabled(context);
         }
     }
 
@@ -442,4 +445,6 @@ public class MyNetworkCheck {
         }
         return macSerial;
     }
+
+
 }
