@@ -14,6 +14,7 @@ import java.util.Locale;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.zhuo.tong.application.MyApplication;
 import com.zhuo.tong.constant.DevelopState;
 
 /**
@@ -53,8 +54,12 @@ public class MyTestLog {
 		SDLogFilePath = sDLogFilePath;
 	}
 
-	public static void info(String msg) {
-		info(TAG, msg);
+//	public static void info(String msg) {
+//		info(TAG, msg);
+//	}
+
+	public static void info(String msg){
+		info(getTag(), msg);
 	}
 
 	/**
@@ -82,6 +87,11 @@ public class MyTestLog {
 			break;
 		}
 	}
+
+	public static void debug(String msg){
+		debug(getTag(), msg);
+	}
+
 	/**
 	 * 用于输出debug级别的日志
 	 * 
@@ -106,6 +116,11 @@ public class MyTestLog {
 			break;
 		}
 	}
+
+	public static void warn(String msg){
+		warn(getTag(), msg);
+	}
+
 	/**
 	 * 用于输出warn级别的日志
 	 * 
@@ -130,6 +145,11 @@ public class MyTestLog {
 			break;
 		}
 	}
+
+	public static void error(String msg){
+		error(getTag(), msg);
+	}
+
 	/**
 	 * 用于输出error级别的日志
 	 * 
@@ -225,6 +245,74 @@ public class MyTestLog {
 				}
 			}
 		}
+	}
+
+	/**
+	 * 获取调用该方法的方法名和所属类等信息->本类方法调用不计
+	 * @return
+	 */
+	public static String getTag(){
+		StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+
+		if (sts == null) {
+			return TAG;
+		}
+
+		String className;
+
+		for (StackTraceElement st : sts) {
+			if (st.isNativeMethod()) {
+				continue;
+			}
+
+			if (st.getClassName().equals(Thread.class.getName())) {
+				continue;
+			}
+
+			className = st.getClassName();
+			if(className.equals(DevelopState.PACKAGE_NAME_LIBRARY))
+				continue;
+
+			if (className.startsWith(MyApplication.packageName)) {
+//				return st.toString();
+				return StackTraceElementToString(st);
+			}
+		}
+		return TAG;
+	}
+
+	/**
+	 * 因为StackTraceElement的StringBuilder只有80个字符，所以自己重写了方法
+	 * @param st
+	 * @return
+	 */
+	public static String StackTraceElementToString(StackTraceElement st) {
+		StringBuilder buf = new StringBuilder(120);
+
+		buf.append(st.getClassName());
+		buf.append('.');
+		buf.append(st.getMethodName());
+
+		if (st.isNativeMethod()) {
+			buf.append("(Native Method)");
+		} else {
+			String fName = st.getFileName();
+
+			if (fName == null) {
+				buf.append("(Unknown Source)");
+			} else {
+				int lineNum = st.getLineNumber();
+
+				buf.append('(');
+				buf.append(fName);
+				if (lineNum >= 0) {
+					buf.append(':');
+					buf.append(lineNum);
+				}
+				buf.append(')');
+			}
+		}
+		return buf.toString();
 	}
 	
 }
