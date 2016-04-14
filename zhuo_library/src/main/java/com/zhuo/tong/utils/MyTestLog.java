@@ -59,7 +59,10 @@ public class MyTestLog {
 //	}
 
 	public static void info(String msg){
-		info(getTag(), msg);
+		if(DevelopState.currentStage == DevelopState.DEVELOP)
+			error(getTag(), msg);
+		else
+			info(getTag(), msg);
 	}
 
 	/**
