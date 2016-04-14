@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\build\\intermediates\\res\\merged\\debug\\layout\\xlistview_footer.xml",
+        "source": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\src\\main\\res\\layout\\xlistview_footer.xml"
+    },
+    {
+        "merged": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\build\\intermediates\\res\\merged\\debug\\layout\\xlistview_header.xml",
+        "source": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\src\\main\\res\\layout\\xlistview_header.xml"
+    },
+    {
+        "merged": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\build\\intermediates\\res\\merged\\debug\\layout\\tabpager_dividerlinearlayout.xml",
+        "source": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\src\\main\\res\\layout\\tabpager_dividerlinearlayout.xml"
+    },
+    {
+        "merged": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main1.xml",
+        "source": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\src\\main\\res\\layout\\activity_main1.xml"
+    }
+]

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\tag_pager_indicator_tagitem_bg_select.9.png",
+        "source": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\src\\main\\res\\drawable-hdpi\\tag_pager_indicator_tagitem_bg_select.9.png"
+    },
+    {
+        "merged": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_launcher.png",
+        "source": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\xlistview_arrow.png",
+        "source": "E:\\android_code_by_studio\\MyApplication\\zhuo_library\\src\\main\\res\\drawable-hdpi\\xlistview_arrow.png"
+    }
+]

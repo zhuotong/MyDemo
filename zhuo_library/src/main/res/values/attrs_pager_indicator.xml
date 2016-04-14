@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <declare-styleable name="PagerIndicator">
+        <!-- tag的样式 -->
+        <attr name="PagerIndicatorStyle" format="reference"/>
+        <!-- tag图标的样式 -->
+        <attr name="IconPageIndicatorStyle" format="reference"/>
+    </declare-styleable>
+	
+    
+    <!-- 装tag的线性容器的样式 -->
+    <declare-styleable name="DividerLinearLayout">
+        <attr name="DividerLinearLayoutStyle" format="reference"/>
+    </declare-styleable>
+    
+</resources>

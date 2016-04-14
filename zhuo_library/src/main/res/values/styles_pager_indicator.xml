@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <style name="Widget"></style>
+    
+    <style name="Widget.TagPagerIndicator_TagStyle" parent="Widget">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/tag_pager_indicator_tagbg</item>
+        <item name="android:paddingLeft">22dip</item>
+        <item name="android:paddingRight">22dip</item>
+        <item name="android:paddingTop">13dp</item>
+        <item name="android:paddingBottom">13dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.TabPagerIndicator</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="TextAppearance.TabPagerIndicator" parent="Widget">
+        <item name="android:textColor">@color/tag_pager_indicator_tagtextcolor</item>
+    </style>
+
+    <style name="Widget.IconPagerIndicator">
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:layout_marginRight">3dp</item>
+    </style>
+    
+    <style name="Theme.TagPagerIndicatorDefaults" parent="android:Theme">
+        <item name="IconPageIndicatorStyle">@style/Widget.IconPagerIndicator</item>
+        <item name="PagerIndicatorStyle">@style/Widget.TagPagerIndicator_TagStyle</item>
+        <!-- <item name="DividerLinearLayoutStyle">@style/Widget.TagPagerIndicator_DividerLinearLayoutStyle</item> -->
+    </style>
+    
+    
+    
+	<style name="Widget.TagPagerIndicator_DividerLinearLayoutStyle" >
+	    <!-- 下面三个是自己填上去的，就是linearlayout布局中的属性，是设置分隔线的，api11以上才能用
+        写这个就是为了测试IcsLinearLayout是否有误，以及自己加深理解 -->
+        <!-- 两个子控件中间添加分隔线，四个模式，IcsLinearLayout中默认值是没有，所以不设置肯定没有分隔线 -->
+        <item name="android:showDividers">middle</item>
+        <item name="android:dividerPadding">9dp</item>
+        <!-- 指定分隔图片，不指定当然也没有,分割线的宽高，一方面是线性布局的朝向，一方面是图片的宽高,下面的图片就是测试用的，真正用时自己替换-->
+        <item name="android:divider">@drawable/xlistview_arrow</item>
+	</style>
+
+</resources>
