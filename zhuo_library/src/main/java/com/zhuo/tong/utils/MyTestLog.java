@@ -270,10 +270,10 @@ public class MyTestLog {
 			}
 
 			className = st.getClassName();
-			if(className.equals(DevelopState.PACKAGE_NAME_LIBRARY))
+			if(className.equals(MyTestLog.class.getName()))
 				continue;
 
-			if (className.startsWith(MyApplication.packageName)) {
+			if (className.startsWith(DevelopState.PACKAGE_NAME_LIBRARY) || className.startsWith(MyApplication.packageName)) {
 //				return st.toString();
 				return StackTraceElementToString(st);
 			}
