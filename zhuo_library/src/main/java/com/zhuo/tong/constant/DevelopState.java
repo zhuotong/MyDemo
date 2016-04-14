@@ -28,4 +28,6 @@ public interface DevelopState {
 	 * 当前阶段标示
 	 */
 	int currentStage = DEVELOP;
+
+	String PACKAGE_NAME_LIBRARY = "com.zhuo.tong";
 }
