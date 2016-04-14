@@ -3,9 +3,11 @@ package com.zhuo.tong.utils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Set;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.text.TextUtils;
 
 /**
@@ -79,13 +81,28 @@ public class SPUtils {
 	}
 
 	/**
+	 * api11以上才支持。
+	 * @param key
+	 * @param values
+	 * @return 0是apply方法；1是commit执行成功；2是commit执行失败; -1是sdk低
+	 */
+	public int putStringSet(String key, Set<String> values){
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			editor.putStringSet(key, values);
+			return spc.apply(editor);
+		}
+		return -1;
+	}
+
+	/**
 	 * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
 	 * 
-	 * @param context
+	 * //@param context
 	 * @param key
 	 * @param object
+	 * @return 0是apply方法；1是commit执行成功；2是commit执行失败
 	 */
-	public void put(String key, Object object) {
+	public int put(String key, Object object) {
 
 		if (object instanceof String) {
 			editor.putString(key, (String) object);
@@ -103,13 +120,26 @@ public class SPUtils {
 			editor.putString(key, null);
 		}
 
-		spc.apply(editor);
+		return spc.apply(editor);
+	}
+
+	/**
+	 * api11以上才支持
+	 * @param key
+	 * @param defValues
+	 * @return null为sdk版本低
+	 */
+	public Set<String> get(String key, Set<String> defValues) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			return sp.getStringSet(key, defValues);
+		}
+		return null;
 	}
 
 	/**
 	 * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
 	 * 
-	 * @param context
+	 * //@param context
 	 * @param key
 	 * @param defaultObject
 	 * @return
@@ -136,7 +166,7 @@ public class SPUtils {
 	/**
 	 * 移除某个key值已经对应的值
 	 * 
-	 * @param context
+	 * //@param context
 	 * @param key
 	 */
 	public void remove(String key) {
@@ -148,7 +178,7 @@ public class SPUtils {
 	/**
 	 * 清除所有数据
 	 * 
-	 * @param context
+	 * //@param context
 	 */
 	public void clear() {
 
@@ -159,7 +189,7 @@ public class SPUtils {
 	/**
 	 * 查询某个key是否已经存在
 	 * 
-	 * @param context
+	 * //@param context
 	 * @param key
 	 * @return
 	 */
@@ -171,7 +201,7 @@ public class SPUtils {
 	/**
 	 * 返回所有的键值对
 	 * 
-	 * @param context
+	 * //@param context
 	 * @return
 	 */
 	public Map<String, ?> getAll() {
@@ -199,6 +229,7 @@ public class SPUtils {
 				Class<SharedPreferences.Editor> clz = SharedPreferences.Editor.class;
 				return clz.getMethod("apply");
 			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
 			}
 
 			return null;
@@ -217,8 +248,11 @@ public class SPUtils {
 					return 0;
 				}
 			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
 			} catch (IllegalAccessException e) {
+				e.printStackTrace();
 			} catch (InvocationTargetException e) {
+				e.printStackTrace();
 			}
 			return editor.commit() ? 1 : 2;
 		}
