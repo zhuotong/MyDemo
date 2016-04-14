@@ -277,23 +277,27 @@ public class MyTestLog {
 				continue;
 
 			if (className.startsWith(DevelopState.PACKAGE_NAME_LIBRARY) || className.startsWith(MyApplication.packageName)) {
-//				return st.toString();
-				return StackTraceElementToString(st);
+				className = st.toString();
+				if(className.length() >= 92)
+					return StackTraceElementToString(st);
+				else
+					return className;
 			}
 		}
 		return TAG;
 	}
 
 	/**
-	 * 因为StackTraceElement的StringBuilder只有80个字符，所以自己重写了方法
+	 * 因为android studio 过滤tag好像最多92个字符，多了打印不出；
+	 * 而如果不用studio或者eclipse的logcat过滤，这个tag也是有长度限制的，具体多长懒得测试了，比它们长一些。
+	 * 所以对于那些长的这里控制一下
 	 * @param st
 	 * @return
 	 */
 	public static String StackTraceElementToString(StackTraceElement st) {
-		StringBuilder buf = new StringBuilder(120);
-
-		buf.append(st.getClassName());
-		buf.append('.');
+		StringBuilder buf = new StringBuilder(80);
+		/*buf.append(st.getClassName());
+		buf.append('.');*/
 		buf.append(st.getMethodName());
 
 		if (st.isNativeMethod()) {
