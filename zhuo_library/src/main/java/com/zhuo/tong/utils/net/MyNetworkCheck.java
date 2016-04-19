@@ -25,6 +25,8 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -145,11 +147,46 @@ public class MyNetworkCheck {
         return !TextUtils.isEmpty(proxy) && port != 0;
     }
 
+    /**
+     * 打开wifi设置界面
+     * @param context
+     */
+    public static void openWIFI_Setting(Context context){
+        /*
+            intent = new Intent();
+            //小米2 miui5,android4.1测试跳出wifi选择界面，如果有多个wifi管理器
+            ComponentName component = new ComponentName("android", "com.android.internal.app.ResolverActivity");//com.android.settings/.Settings$WifiSettingsActivity
+            //小米2 miui5,android4.1测试直接跳到wifi管理界面
+//            ComponentName component = new ComponentName("com.android.settings", "com.android.settings.Settings$WifiSettingsActivity");
+            intent.setComponent(component);
+            intent.setAction("android.settings.WIFI_SETTINGS");*/
+
+
+        Intent intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 打开移动网络设置
+     * @param context
+     */
+    public static void openDATA_ROAMING_SETTINGS(Context context){
+        if(Build.VERSION.SDK_INT > 10) {
+            Intent intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+            context.startActivity(intent);
+        }else {
+            Intent intent = new Intent();
+            ComponentName component = new ComponentName("com.android.phone", "com.android.phone.Settings");
+            intent.setComponent(component);
+            intent.setAction("android.intent.action.VIEW");
+            context.startActivity(intent);
+        }
+    }
 
     /**
      * 打开网络设置界面
      */
-    public static void openSetting(Activity activity) {
+    public static void openWIRELESS_Setting(Context context) {
         /*Intent intent = new Intent("/");  
         ComponentName cm = new ComponentName("com.android.settings",  
                 "com.android.settings.WirelessSettings");  
@@ -159,15 +196,30 @@ public class MyNetworkCheck {
 
         Intent intent = null;
         //判断手机系统的版本  即API大于10 就是3.0或以上版本 
-        if (android.os.Build.VERSION.SDK_INT > 10) {
+        if (android.os.Build.VERSION.SDK_INT > 1) {
+            //小米2跳转到设置，a366t可以跳转到无线和网络设置。问题应该是2.3的无线和移动网络有一个共同界面，而4.1则只有设置跟节点同时包含无线和移动网络。
             intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
+            //应该所以版本都通用的打开wifi设置界面的方法，跳出wifi选择界面，如果有多个wifi管理器，如果有默认那么直接进默认。
+//            intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
+            //小米2打开移动网络设置的方法。a366t异常好像没有类，但是看api3应该支持，不知道是a366t的问题还是2.3都这样。这个是a366t的移动网络设置com.android.phone/.Settings
+//            intent = new Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+
         } else {
+            //a366t，2.3可以跳转到无线和网络设置。小米2出错，没有activity
             intent = new Intent();
             ComponentName component = new ComponentName("com.android.settings", "com.android.settings.WirelessSettings");
             intent.setComponent(component);
             intent.setAction("android.intent.action.VIEW");
+/*
+            intent = new Intent();
+            //小米2 miui5,android4.1测试跳出wifi选择界面，如果有多个wifi管理器
+            ComponentName component = new ComponentName("android", "com.android.internal.app.ResolverActivity");//com.android.settings/.Settings$WifiSettingsActivity
+            //小米2 miui5,android4.1测试直接跳到wifi管理界面
+//            ComponentName component = new ComponentName("com.android.settings", "com.android.settings.Settings$WifiSettingsActivity");
+            intent.setComponent(component);
+            intent.setAction("android.settings.WIFI_SETTINGS");*/
         }
-        activity.startActivity(intent);
+        context.startActivity(intent);
     }
 
     /**
@@ -236,7 +288,7 @@ public class MyNetworkCheck {
      * @return
      */
     public static String getStringWifiIp(Context context){
-        return iintToIp(getIntWifiIp(context));
+        return intToIp(getIntWifiIp(context));
     }
 
     /**

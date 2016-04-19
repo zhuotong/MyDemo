@@ -60,7 +60,7 @@ public class MyMemoryManager {
 	
 	/**
 	 * 获取正在运行的进程的数量
-	 * @param context 上下文
+	 * //@param context 上下文
 	 * @return
 	 */
 	public int getRunningProcessCount(){
@@ -94,7 +94,7 @@ public class MyMemoryManager {
 	
 	/**
 	 * 获取手机可用的总内存
-	 * @param context 上下文
+	 * //@param context 上下文
 	 * @return long byte 返回-1代表异常了
 	 */
 	@SuppressLint("NewApi")
